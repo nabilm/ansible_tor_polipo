@@ -1,0 +1,27 @@
+---
+
+- name: Install polipo and tor
+  apt: >
+    name={{ item }}
+    update_cache={{ update_apt_cache }}
+    state=latest
+    cache_valid_time={{ cache_valid_time }}
+  with_items:
+    - tor
+    - polipo
+  tags:
+    - packages
+    - polipo
+
+- name: Create polipo log directory
+  file: path={{ polipo_log_dir }} state=directory owner={{ app_user }} group={{ app_group }} mode=0777
+  tags:
+    - polipo
+
+- name: Create the polipo configuration file
+  template: src=polipo_config.j2
+            dest=/etc/polipo/config
+            backup=yes
+  notify: restart polipo
+  tags:
+    - polipo

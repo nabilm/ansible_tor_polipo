@@ -1,0 +1,13 @@
+---
+
+# Package related info
+update_apt_cache: yes
+cache_valid_time: 3600
+
+# Polipo configuration
+app_user: polipo
+app_group: polipo
+polipo_log_dir: /var/log/polipo
+polipo_log_file: "{{ polipo_log_dir }}/polipo.log"
+tor_host: localhost
+tor_port: 9050
